@@ -1,0 +1,6 @@
+| Sprint      | Fókusz                                    | Eredmény                                    |
+| ----------- | ----------------------------------------- | ------------------------------------------- |
+| 1 (3‑4 nap) | DB‑séma, Docker‑Compose, seed adatok      | `task`, `project`, `user` táblák + init SQL |
+| 2 (4‑5 nap) | PL/pgSQL függvények + `mv_due_soon`       | “due soon” API működik                      |
+| 3 (4 nap)   | Django modellek, JWT auth, DRF endpointok | alapkliens Postman‑filmmel                  |
+| 4 (3 nap)   | Tesztek, CI, MkDocs, demo videó           | „publish‑ready” repo                        |
