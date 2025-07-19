@@ -28,3 +28,27 @@ CREATE TABLE comment (
   body TEXT NOT NULL,
   created_at TIMESTAMPTZ DEFAULT now()
 );
+
+-- eseménynapló tábla
+CREATE TABLE IF NOT EXISTS task_event (
+  id BIGSERIAL PRIMARY KEY,
+  task_id BIGINT REFERENCES task(id),
+  event TEXT,
+  happened_at TIMESTAMPTZ DEFAULT now()
+);
+
+-- státusz‑váltó függvény
+CREATE OR REPLACE FUNCTION task_set_status(_task BIGINT, _new TEXT)
+RETURNS VOID LANGUAGE plpgsql AS $$
+BEGIN
+  UPDATE task
+    SET status = _new
+    WHERE id = _task;
+
+  INSERT INTO task_event(task_id, event)
+    VALUES (_task, 'STATUS_' || upper(_new));
+
+  PERFORM pg_notify('task_channel', _task || ':' || _new);
+END;
+$$;
+
